@@ -1,0 +1,18 @@
+.events-list {
+  .event-card {
+    text-decoration: none;
+    color: #000000;
+
+    &:hover {
+      color: #f8a41d;
+      text-decoration: none;
+    }
+
+    img {
+      border-radius: 5px;
+      object-fit: cover;
+      width: 100%;
+      height: 200px;
+    }
+  }
+}

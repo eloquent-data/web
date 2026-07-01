@@ -1,0 +1,42 @@
+.training {
+  background: #3b6e7f;
+  color: #ffffff;
+
+  a {
+    background-color: #ffffff;
+  }
+
+  .start-project-container {
+    width: 60%;
+
+    button {
+      background: #ffffff;
+      color: #000000;
+    }
+  }
+}
+
+.testimonials {
+  padding-bottom: 80px;
+  background: #f8a41d;
+  min-height: 700px;
+
+  .center-slider {
+    width: 50%;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 80px;
+  }
+
+  .carousel-control-next,
+  .carousel-control-prev,
+  .carousel-indicators {
+    filter: invert(100%);
+  }
+}
+
+.courses {
+  a {
+    color: #000000;
+  }
+}

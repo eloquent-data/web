@@ -1,0 +1,53 @@
+.box {
+  align-items: center;
+}
+
+.academy {
+  display: flex;
+}
+
+.acadbox {
+  background: #3b6e7f;
+  min-height: 500px;
+  display: flex;
+}
+
+.impact-service {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.impact,
+.services {
+  min-height: 240px;
+  display: flex;
+  background: #3b6e7f;
+}
+
+.about-focus {
+  color: #ffffff;
+  width: 80%;
+  margin: auto;
+}
+
+.team {
+  a {
+    color: #000000;
+    text-decoration: none;
+    filter: saturate(0%);
+  }
+
+  img {
+    min-width: 250px;
+    min-height: 250px;
+    object-fit: cover;
+  }
+
+  :hover {
+    color: #f8a41d;
+    filter: saturate(100%);
+    transition-duration: 0.5s;
+  }
+}

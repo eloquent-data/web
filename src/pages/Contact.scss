@@ -1,0 +1,43 @@
+.contact-container {
+  width: 70%;
+}
+
+.contact-form {
+  width: 100%;
+
+  textarea,
+  input {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 21px;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    background: none;
+    border: none;
+    border-bottom: #000000 1px solid;
+  }
+
+  button {
+    background: #f8a41d;
+  }
+}
+
+.contact-details {
+  background: #3b6e7f;
+  color: #ffffff;
+
+  a {
+    color: #ffffff;
+    text-decoration: none;
+
+    :hover {
+      color: #f8a41d;
+    }
+  }
+
+  i {
+    font-size: 48px;
+    line-height: 150%;
+  }
+}
