@@ -1,35 +1,35 @@
-const MAILCHIMP_ENDPOINT =
-  'https://eloquentdata.us2.list-manage.com/subscribe/post-json?u=dcecb2cfb309250d79bc47e22&amp;id=c4cfd3ae38&amp;';
+const MAILCHIMP_URL = import.meta.env.VITE_MAILCHIMP_URL as string;
 
-interface MailChimpResponse {
-  result: string;
-  msg: string;
-}
-
-export function subscribeToMailchimp(name: string, email: string): Promise<MailChimpResponse> {
+export function subscribeToMailchimp(
+  email: string,
+  firstName: string
+): Promise<{ result: string; msg: string }> {
   return new Promise((resolve, reject) => {
-    const callbackName = `mc_callback_${Date.now()}`;
+    if (!MAILCHIMP_URL) {
+      reject(new Error('MailChimp URL not configured'));
+      return;
+    }
+
     const params = new URLSearchParams({
-      FULLNAME: name,
       EMAIL: email,
+      FNAME: firstName,
       subscribe: 'Subscribe',
-      b_dcecb2cfb309250d79bc47e22_c4cfd3ae38: '',
-      c: callbackName,
     });
 
-    const url = MAILCHIMP_ENDPOINT + params.toString();
+    const url = `${MAILCHIMP_URL}&${params.toString()}`;
+    const callbackName = `mc_cb_${Date.now()}`;
 
     const script = document.createElement('script');
-    script.src = url;
+    script.src = url.replace('/post?', '/post-json?') + `&c=${callbackName}`;
 
-    (window as any)[callbackName] = (response: MailChimpResponse) => {
-      delete (window as any)[callbackName];
+    (window as Record<string, unknown>)[callbackName] = (data: { result: string; msg: string }) => {
+      delete (window as Record<string, unknown>)[callbackName];
       document.body.removeChild(script);
-      resolve(response);
+      resolve(data);
     };
 
     script.onerror = () => {
-      delete (window as any)[callbackName];
+      delete (window as Record<string, unknown>)[callbackName];
       document.body.removeChild(script);
       reject(new Error('Network error'));
     };

@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 import { contact, socialMedia } from '@/data/contact';
 import './Footer.scss';
 
-const year = new Date().getFullYear();
-
 export default function Footer() {
+  const year = new Date().getFullYear();
+  const mailto = `mailto:${contact.email}`;
+
   return (
     <div className="footer">
       <div className="container pt-9">
@@ -17,7 +18,7 @@ export default function Footer() {
             </p>
             <p className="paragraph-small">
               <i className="fa fa-envelope-open-text" />
-              <a href={`mailto:${contact.email}`} target="_blank" rel="noreferrer">
+              <a href={mailto} target="_blank" rel="noopener noreferrer">
                 &nbsp; {contact.email}
               </a>
             </p>
@@ -41,21 +42,20 @@ export default function Footer() {
         </div>
 
         <div className="icons main-title">
-          <a href={socialMedia.tw} target="_blank" rel="noreferrer">
+          <a href={socialMedia.tw} target="_blank" rel="noopener noreferrer">
             <i className="fab fa-twitter pr-4" />
           </a>
-          <a href={socialMedia.ln} target="_blank" rel="noreferrer">
+          <a href={socialMedia.ln} target="_blank" rel="noopener noreferrer">
             <i className="fab fa-linkedin-in pr-4" />
           </a>
-          <a href={socialMedia.fb} target="_blank" rel="noreferrer">
+          <a href={socialMedia.fb} target="_blank" rel="noopener noreferrer">
             <i className="fab fa-facebook-f pr-4" />
           </a>
-          <a href={socialMedia.ig} target="_blank" rel="noreferrer">
+          <a href={socialMedia.ig} target="_blank" rel="noopener noreferrer">
             <i className="fab fa-instagram pr-4" />
           </a>
         </div>
       </div>
-
       <div className="paragraph-small copyright py-3 text-center">
         &copy;{year} Eloquent Data, All right reserved.
       </div>

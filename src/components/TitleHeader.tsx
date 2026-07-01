@@ -2,7 +2,6 @@ import './TitleHeader.scss';
 
 interface TitleHeaderProps {
   title: string;
-  description?: string;
 }
 
 export default function TitleHeader({ title }: TitleHeaderProps) {

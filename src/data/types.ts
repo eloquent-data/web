@@ -1,5 +1,5 @@
 export interface ContactInterface {
-  id: string;
+  id?: string;
   date: number;
   name: string;
   email: string;
@@ -24,30 +24,11 @@ export interface IOffer {
   date: number;
 }
 
-export interface IEvent {
-  id: number;
-  title: string;
-  slug: string;
-  img: string;
-}
-
-export interface Partner {
-  img: string;
-  alt: string;
-}
-
 export interface Project {
   id: number;
   title: string;
   img: string;
   summary: string;
-  problem: string;
-}
-
-export interface TeamMember {
-  name: string;
-  title?: string;
-  link: string;
 }
 
 export interface ProjectDetail {
@@ -61,7 +42,7 @@ export interface ProjectDetail {
   target: string;
   objective: string;
   project_link?: string;
-  team: TeamMember[];
+  team: { name: string; title?: string; link: string }[];
 }
 
 export interface Founder {
@@ -92,11 +73,17 @@ export interface Insight {
   title: string;
   img: string;
   link: string;
+  description?: string;
 }
 
-export interface HomeInsight {
-  img: string;
+export interface Event {
+  id: number;
   title: string;
-  description: string;
-  link: string;
+  slug: string;
+  img: string;
+}
+
+export interface Partner {
+  img: string;
+  alt: string;
 }

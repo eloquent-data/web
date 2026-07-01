@@ -1,28 +1,15 @@
-.navbar-wrapper {
-  background-color: transparent;
-
-  &--orange {
-    background-color: #f8a41d;
-  }
-}
-
 .navbar-width {
   width: 80%;
   margin: auto;
 
   nav.navbar {
-    .navbar-brand {
-      img {
-        height: 60px;
-      }
+    .navbar-brand img {
+      height: 60px;
     }
-
     li a {
       color: #000000;
     }
-
-    li a:hover,
-    li a.nav-link--active {
+    li a:hover {
       font-weight: 700;
     }
   }
@@ -31,13 +18,8 @@
 @media (max-width: 767.98px) {
   .navbar-width {
     width: 100%;
-
-    nav.navbar {
-      .navbar-brand {
-        img {
-          height: 50px;
-        }
-      }
+    nav.navbar .navbar-brand img {
+      height: 50px;
     }
   }
 }

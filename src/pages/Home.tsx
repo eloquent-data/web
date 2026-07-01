@@ -1,14 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import Particles from 'react-tsparticles';
-import { loadFull } from 'tsparticles';
-import type { Engine } from 'tsparticles-engine';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import Paragraph from '@/components/Paragraph';
-import { homePartner, homeInsight, training_link, project_link } from '@/data/home';
-import { projects } from '@/data/projects';
+import Footer from '@/components/Footer';
+import { homeProjects, homePartner, homeInsight, training_link, project_link } from '@/data/home';
 import { subscribeToMailchimp } from '@/services/mailchimp';
 import { slugify } from '@/utils/slug';
 import './Home.scss';
@@ -18,31 +14,44 @@ interface NewsletterForm {
   email: string;
 }
 
+const HOME_DESC =
+  "We believe data can accelerate Africa's development. To enable this process, we provide data enthusiasts and working professionals with the required skills, resources and mentorship they need to solve data challenges in Africa.";
+
 export default function Home() {
-  const { register, handleSubmit, reset, formState: { isValid } } = useForm<NewsletterForm>({ mode: 'onChange' });
   const [subMessage, setSubMessage] = useState('');
 
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadFull(engine);
-  }, []);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isValid },
+  } = useForm<NewsletterForm>({ mode: 'onChange' });
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const $ = (window as any).$;
-    if ($) {
-      $('#projectSlider').carousel();
-      $('#insightSlider').carousel();
-    }
+
+    // Load particles
+    const script = document.createElement('script');
+    script.src = '/assets/particles.js';
+    script.onload = () => {
+      (window as Record<string, unknown> & { particlesJS?: (id: string, config: string, cb: () => void) => void })
+        .particlesJS?.('particles-js', '/assets/particles.json', () => {});
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
 
   const onSubscribe = async (data: NewsletterForm) => {
     try {
-      const response = await subscribeToMailchimp(data.name, data.email);
-      if (response.result && response.result !== 'error') {
+      const res = await subscribeToMailchimp(data.email, data.name);
+      if (res.result !== 'error') {
         setSubMessage('Welcome to Eloquent Data Community');
         reset();
       } else {
-        setSubMessage(response.msg.split('<')[0]);
+        setSubMessage(res.msg.split('<')[0]);
       }
     } catch {
       setSubMessage('Try again');
@@ -51,18 +60,12 @@ export default function Home() {
 
   return (
     <>
-      <Navbar
-        title="Home"
-        description="We believe data can accelerate Africa's development. To enable this process, we provide data enthusiasts and working professionals with the required skills, resources and mentorship they need to solve data challenges in Africa."
-      />
+      <Navbar title="Home" description={HOME_DESC} />
 
-      <Particles
-        id="particles-js"
-        className="body"
-        init={particlesInit}
-        url="/assets/particles.json"
-      />
+      {/* Particles background */}
+      <div id="particles-js" className="body" />
 
+      {/* Intro */}
       <div className="intro">
         <div className="row">
           <div className="col-lg-7 col-md-12 col-sm-12 row justify-content-end">
@@ -75,7 +78,7 @@ export default function Home() {
                 href={training_link}
                 className="btn btn-primary btn-lg px-5 py-2 home-button"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
               >
                 Get trained
               </a>
@@ -83,21 +86,22 @@ export default function Home() {
                 href={project_link}
                 className="btn btn-outline-primary btn-lg px-5 py-2 home-button"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
               >
                 Start a Project
               </a>
             </div>
           </div>
           <div className="col-lg-5 col-md-12 col-sm-12 intro-img d-none d-lg-block">
-            <img src="/assets/img/intro-image.png" className="img-fluid" alt="" />
+            <img src="assets/img/intro-image.png" className="img-fluid" alt="" />
           </div>
         </div>
       </div>
 
+      {/* What we do */}
       <Paragraph
         boldTitle="What we do"
-        paragraphSentence="We believe data can accelerate Africa's development. To enable this process, we provide data enthusiasts and working professionals with the required skills, resources and mentorship they need to solve data challenges in Africa."
+        paragraphSentence={HOME_DESC}
         bgColor="#ffffff"
         mgT="-50px"
         mgB="0"
@@ -107,11 +111,13 @@ export default function Home() {
       <div className="project-list-slider">
         <div className="container pt-md-10 pt-7 section-header">
           <h2 className="bold-title">Our Project</h2>
-          <Link to="/projects" className="project-view"><h5>View all</h5></Link>
+          <Link to="/projects" className="project-view">
+            <h5>View all</h5>
+          </Link>
         </div>
         <div id="projectSlider" className="carousel slide" data-ride="carousel">
           <ol className="carousel-indicators">
-            {projects.map((_, i) => (
+            {homeProjects.map((_, i) => (
               <li
                 key={i}
                 data-target="#projectSlider"
@@ -121,7 +127,7 @@ export default function Home() {
             ))}
           </ol>
           <div className="carousel-inner center-slider">
-            {projects.map((project, i) => (
+            {homeProjects.map((project, i) => (
               <div key={project.id} className={`carousel-item${i === 0 ? ' active' : ''}`}>
                 <Link to={`/projects/${slugify(project.title)}-${project.id}`}>
                   <div className="row">
@@ -130,7 +136,7 @@ export default function Home() {
                       <h4 className="sub-title mt-3">{project.summary}</h4>
                     </div>
                     <div className="col-lg-6 col-12">
-                      <p className="paragraph-small mt-md-5 mt-3">{project.problem}</p>
+                      <p className="paragraph-small mt-md-5 mt-3">{project.summary}</p>
                     </div>
                   </div>
                 </Link>
@@ -149,12 +155,17 @@ export default function Home() {
       </div>
 
       {/* Partners */}
-      <div className="partners container">
+      <div className="partners container" style={{ textAlign: 'center' }}>
         <h2 className="bold-title mt-8 mb-5">Partner</h2>
         <div className="row mb-8">
           {homePartner.map((partner) => (
             <div key={partner.alt} className="col-lg-4 col-md-4 col-sm-12">
-              <img src={`/${partner.img}`} alt={partner.alt} title={partner.alt} />
+              <img
+                src={partner.img}
+                alt={partner.alt}
+                title={partner.alt}
+                className="img-fluid"
+              />
             </div>
           ))}
         </div>
@@ -164,7 +175,9 @@ export default function Home() {
       <div className="insight-list-slider">
         <div className="container pt-lg-10 pt-md-10 pb-5 section-header">
           <h2 className="bold-title d-inline-block">Insight</h2>
-          <Link to="/insights" className="insight-view"><h5>View all</h5></Link>
+          <Link to="/insights" className="insight-view">
+            <h5>View all</h5>
+          </Link>
         </div>
         <div id="insightSlider" className="carousel slide" data-ride="carousel">
           <ol className="carousel-indicators">
@@ -179,12 +192,12 @@ export default function Home() {
           </ol>
           <div className="carousel-inner center-slider">
             {homeInsight.map((insight, i) => (
-              <div key={i} className={`carousel-item${i === 0 ? ' active' : ''}`}>
-                <a href={insight.link} target="_blank" rel="noreferrer">
+              <div key={insight.title} className={`carousel-item${i === 0 ? ' active' : ''}`}>
+                <a href={insight.link} target="_blank" rel="noopener noreferrer">
                   <div className="row">
                     <div className="col-lg-6 col-12 p-4 insight-img">
                       <img
-                        src={`/${insight.img}`}
+                        src={insight.img}
                         alt={insight.title}
                         className="img-fluid align-middle insight-link"
                       />
@@ -216,7 +229,7 @@ export default function Home() {
             <div className="col-lg-6 col-md-6 col-sm-12">
               <h2 className="bold-title">Join the community</h2>
               <p className="sub-title">
-                Get our community newsletter to stay up to date with infomation and opportunities
+                Get our community newsletter to stay up to date with information and opportunities
               </p>
             </div>
             <div className="col-lg-6 col-md-6 col-sm-12">
@@ -230,7 +243,7 @@ export default function Home() {
                 <input
                   type="email"
                   placeholder="Email"
-                  {...register('email', { required: true, pattern: /^\S+@\S+\.\S+$/ })}
+                  {...register('email', { required: true })}
                 />
                 <button
                   type="submit"

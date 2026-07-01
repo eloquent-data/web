@@ -1,10 +1,7 @@
 #particles-js canvas {
   display: block;
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1);
   transform: scale(1);
   opacity: 1;
-  -webkit-transition: opacity 0.8s ease, -webkit-transform 1.4s ease;
   transition: opacity 0.8s ease, transform 1.4s ease;
 }
 
@@ -116,10 +113,6 @@
   .carousel-indicators {
     filter: invert(100%);
   }
-}
-
-.partners {
-  text-align: center;
 }
 
 .subscription {

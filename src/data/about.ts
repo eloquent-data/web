@@ -1,5 +1,10 @@
 import type { Founder } from './types';
 
+export const whoWeAre =
+  "We're educators, analysts, and engineers focused on people and data. At our core, we believe every company will become a data company, not because it's a choice but because ignoring it will be detrimental to their survival.";
+
+export const whatWeDo = `Data is an essential resource for economic growth, competitiveness, innovation, job creation and societal progress. While there is a significant need for data professionals, the lack of skilled human capital has become a serious hindrance.</br></br>Eloquent Data provides data enthusiasts and working professionals with the required skills, resources and mentorship they need to solve data challenges in Africa.`;
+
 export const founders: Founder[] = [
   {
     name: 'Solomon Igori',

@@ -1,5 +1,7 @@
-@import 'customize-bootstrap';
-@import '../../node_modules/bootstrap/scss/bootstrap';
+@import './customize-bootstrap';
+@import 'bootstrap/scss/bootstrap';
+
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;700&display=swap');
 
 html {
   width: 100vw;
@@ -10,7 +12,6 @@ body {
   width: 100vw;
 }
 
-// Titles
 .main-title {
   font-size: 42px;
   font-weight: 400;
@@ -41,7 +42,6 @@ body {
   line-height: 150%;
 }
 
-// Paragraphs
 .paragraph-big {
   font-size: 36px;
   font-weight: 300;
