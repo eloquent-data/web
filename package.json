@@ -1,0 +1,34 @@
+{
+  "name": "landing-page-vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "firebase": "^9.23.0",
+    "react": "^19.2.7",
+    "react-cookie-consent": "^10.0.1",
+    "react-dom": "^19.2.7",
+    "react-google-recaptcha-v3": "^1.11.0",
+    "react-hook-form": "^7.80.0",
+    "react-router-dom": "^6.30.4",
+    "react-tsparticles": "^2.12.2",
+    "sass": "^1.101.0",
+    "tsparticles": "^2.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "oxlint": "^1.71.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1"
+  }
+}

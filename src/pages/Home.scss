@@ -1,0 +1,154 @@
+#particles-js canvas {
+  display: block;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+  -webkit-transition: opacity 0.8s ease, -webkit-transform 1.4s ease;
+  transition: opacity 0.8s ease, transform 1.4s ease;
+}
+
+#particles-js {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: -10;
+  top: 0;
+  left: 0;
+}
+
+.intro {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+
+  a {
+    margin: 5px;
+    color: #000000;
+  }
+
+  .row {
+    width: 100vw;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+
+    .intro-img {
+      text-align: right;
+      padding: 0;
+    }
+  }
+
+  .home-button {
+    min-width: 270px;
+  }
+}
+
+.section-header {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  a {
+    color: #000000;
+    text-decoration: none;
+  }
+
+  .project-view:hover {
+    color: #ffffff;
+    transition: 0.2s;
+  }
+
+  .insight-view:hover {
+    color: #f8a41d;
+    transition: 0.2s;
+  }
+}
+
+.project-list-slider {
+  background-color: #f8a41d;
+  min-height: 700px;
+
+  a {
+    color: #000000;
+    text-decoration: none;
+  }
+
+  .row:hover .project-title {
+    color: #ffffff;
+    transition: 0.2s;
+  }
+
+  .center-slider {
+    width: 50%;
+    margin: auto;
+    padding-bottom: 80px;
+  }
+}
+
+.insight-list-slider {
+  background-color: #ffffff;
+  min-height: 900px;
+
+  a {
+    color: #000000;
+    text-decoration: none;
+  }
+
+  a:hover .insight-link {
+    color: #f8a41d;
+  }
+
+  .center-slider {
+    width: 50%;
+    margin: auto;
+    padding-bottom: 80px;
+
+    .insight-img {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .carousel-control-next,
+  .carousel-control-prev,
+  .carousel-indicators {
+    filter: invert(100%);
+  }
+}
+
+.partners {
+  text-align: center;
+}
+
+.subscription {
+  background-color: #3b6e7f;
+  color: #ffffff;
+
+  input {
+    color: #ffffff;
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 21px;
+    padding-left: 15px;
+    padding-bottom: 5px;
+    background: none;
+    border: none;
+    border-bottom: #ffffff 1px solid;
+  }
+
+  input::placeholder {
+    color: #cccccc;
+  }
+
+  button {
+    background: #ffffff;
+  }
+
+  button:disabled,
+  button[disabled] {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}

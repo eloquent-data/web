@@ -1,0 +1,26 @@
+.footer {
+  background: #040929;
+  color: #ffffff;
+
+  .container {
+    min-height: 500px;
+  }
+
+  .copyright {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  a:hover {
+    text-decoration: none;
+    color: #ffffff;
+  }
+
+  .icons a {
+    color: #ffffff;
+  }
+
+  .icons i:hover {
+    color: #f8a41d;
+  }
+}
