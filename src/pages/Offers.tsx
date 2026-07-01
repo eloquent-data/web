@@ -86,9 +86,11 @@ export default function Offers() {
                   {...register('lastName', { required: true })}
                 />
                 <select
-                  onChange={(e) => setValue('gender', e.target.value, { shouldValidate: true })}
                   defaultValue=""
-                  {...register('gender', { required: true })}
+                  {...register('gender', {
+                    required: true,
+                    onChange: (e) => setValue('gender', e.target.value, { shouldValidate: true }),
+                  })}
                 >
                   <option value="" disabled>Gender</option>
                   <option value="male">Male</option>
@@ -96,9 +98,11 @@ export default function Offers() {
                   <option value="others">Others</option>
                 </select>
                 <select
-                  onChange={(e) => setValue('degree', e.target.value, { shouldValidate: true })}
                   defaultValue=""
-                  {...register('degree', { required: true })}
+                  {...register('degree', {
+                    required: true,
+                    onChange: (e) => setValue('degree', e.target.value, { shouldValidate: true }),
+                  })}
                 >
                   <option value="" disabled>Degree</option>
                   <option value="high_school">High School</option>

@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import Particles from 'react-tsparticles';
+import { loadFull } from 'tsparticles';
+import type { Engine } from 'tsparticles-engine';
 import Navbar from '@/components/Navbar';
 import Paragraph from '@/components/Paragraph';
 import Footer from '@/components/Footer';
@@ -27,21 +30,12 @@ export default function Home() {
     formState: { isValid },
   } = useForm<NewsletterForm>({ mode: 'onChange' });
 
+  const particlesInit = useCallback(async (engine: Engine) => {
+    await loadFull(engine);
+  }, []);
+
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    // Load particles
-    const script = document.createElement('script');
-    script.src = '/assets/particles.js';
-    script.onload = () => {
-      (window as Record<string, unknown> & { particlesJS?: (id: string, config: string, cb: () => void) => void })
-        .particlesJS?.('particles-js', '/assets/particles.json', () => {});
-    };
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
   }, []);
 
   const onSubscribe = async (data: NewsletterForm) => {
@@ -63,7 +57,48 @@ export default function Home() {
       <Navbar title="Home" description={HOME_DESC} />
 
       {/* Particles background */}
-      <div id="particles-js" className="body" />
+      <Particles
+        id="particles-js"
+        className="body"
+        init={particlesInit}
+        options={{
+          detectRetina: true,
+          particles: {
+            number: { value: 40, density: { enable: true, area: 1000 } },
+            color: { value: '#f8a41d' },
+            shape: { type: 'circle' },
+            opacity: {
+              value: 0.2,
+              animation: { enable: false, speed: 2, minimumValue: 0.1, sync: false },
+            },
+            size: {
+              value: { min: 0.1, max: 10 },
+              animation: { enable: true, speed: 5, minimumValue: 0.1, sync: false },
+            },
+            links: { enable: true, distance: 200, color: '#f8a41d', opacity: 0.2, width: 2 },
+            move: {
+              enable: true,
+              speed: 2,
+              direction: 'none',
+              outModes: { default: 'out' },
+              attract: { enable: false, rotate: { x: 600, y: 1200 } },
+            },
+          },
+          interactivity: {
+            detectsOn: 'canvas',
+            events: {
+              onHover: { enable: true, mode: 'repulse' },
+              onClick: { enable: true, mode: 'push' },
+              resize: true,
+            },
+            modes: {
+              repulse: { distance: 400, duration: 0.4 },
+              push: { quantity: 4 },
+              remove: { quantity: 2 },
+            },
+          },
+        }}
+      />
 
       {/* Intro */}
       <div className="intro">

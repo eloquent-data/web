@@ -22,14 +22,14 @@ export function subscribeToMailchimp(
     const script = document.createElement('script');
     script.src = url.replace('/post?', '/post-json?') + `&c=${callbackName}`;
 
-    (window as Record<string, unknown>)[callbackName] = (data: { result: string; msg: string }) => {
-      delete (window as Record<string, unknown>)[callbackName];
+    (window as unknown as Record<string, unknown>)[callbackName] = (data: { result: string; msg: string }) => {
+      delete (window as unknown as Record<string, unknown>)[callbackName];
       document.body.removeChild(script);
       resolve(data);
     };
 
     script.onerror = () => {
-      delete (window as Record<string, unknown>)[callbackName];
+      delete (window as unknown as Record<string, unknown>)[callbackName];
       document.body.removeChild(script);
       reject(new Error('Network error'));
     };
